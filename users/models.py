@@ -20,6 +20,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
    # campany = models.ForeignKey(Company, default=1, on_delete=models.DO_NOTHING, null=True, blank=True)
+    campany = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
 
     # At creation we assign a base role
     def save(self, *args, **kwargs):
