@@ -22,9 +22,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
-    company_id = models.PositiveIntegerField(null=True, blank=True)
-  
-    # At creation we assign a base role, at updating still maintain this role
+    # campany = models.ForeignKey(Category, default=1, on_delete=models.DO_NOTHING)
+
+    # At creation we assign a base role
     def save(self, *args, **kwargs):
         if not self.pk:  
             self.role = self.base_role
