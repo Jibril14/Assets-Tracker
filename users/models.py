@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from .manager import CustomUserManager
-
+from company.models import Company
 
 class User(AbstractBaseUser, PermissionsMixin):
     class Role(models.TextChoices):
@@ -12,17 +12,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     base_role = Role.STAFF
     role = models.CharField(max_length=50, choices=Role.choices)
-    username = models.CharField(
-        max_length=150,
-        unique=True,
-        verbose_name=_("Username"))
+    username = models.CharField(max_length=150,verbose_name=_("Username"))
     first_name = models.CharField(max_length=150, verbose_name=_("First Name"))
     last_name = models.CharField(max_length=150, verbose_name=_("Last Name"))
     email = models.EmailField(unique=True, verbose_name=_("Email Address"))
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
-    # campany = models.ForeignKey(Category, default=1, on_delete=models.DO_NOTHING)
+   # campany = models.ForeignKey(Company, default=1, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     # At creation we assign a base role
     def save(self, *args, **kwargs):
