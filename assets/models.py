@@ -43,6 +43,11 @@ class AssetLogs(models.Model):
         verbose_name = 'assets_log'
         verbose_name_plural = 'assets_logs'
     
+    def save(self, *args, **kwargs):
+        if self.return_date is None:
+            self.return_date =  str(datetime.date(year=2024, month=1, day=1))
+        super(AssetLogs, self).save(*args, **kwargs)
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100,  verbose_name=_("Category Name"), unique=True)
